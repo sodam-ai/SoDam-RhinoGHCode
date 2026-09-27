@@ -6,18 +6,24 @@ IronPython stub checks. Do not open or bake into the existing Rhino model, or
 change Rhino licensing, global settings, or other Grasshopper definitions.
 No separate project folder is needed.
 
-## Recommended one-command native check
+## Recommended native check
 
-With Rhino 7 and Grasshopper already open, enter this in the **Rhino command
-line** once:
+With Rhino 7 and Grasshopper already open, run this in PowerShell from the
+downloaded project folder to display the script's full path:
+
+```powershell
+(Resolve-Path '.\references\rhino7-native-probe.py').Path
+```
+
+Copy the printed path into this **Rhino command line** command and run it once:
 
 ```text
-_-RunPythonScript "D:\AI_Dev_Work\2026y\26y_09m_30d_SoDam-RhinoGHCode\references\rhino7-native-probe.py"
+_-RunPythonScript "<full path printed by PowerShell>"
 ```
 
 The script creates a detached, unsaved `GH_Document`, runs the four emitted
 C#/GhPython point nodes and the C# trimmed Brep Tree example, and writes
-`D:\AI_Dev_Work\2026y\26y_09m_30d_SoDam-RhinoGHCode\rhino7-native-probe-result.json`.
+`rhino7-native-probe-result.json` in the project root.
 It does not add geometry to the Rhino document or visible Grasshopper canvas.
 The corrected probe passed on Rhino `7.0.20314.3001`: all four point nodes
 returned their expected values, and the C# trimmed Brep tree had paths

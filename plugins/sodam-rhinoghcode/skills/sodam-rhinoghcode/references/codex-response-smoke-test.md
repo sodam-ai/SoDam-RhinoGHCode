@@ -10,7 +10,7 @@ A third explicit installed-skill response placed `EnsurePath(B.Path(i))` before 
 
 In a fresh Codex CLI session, a generic Rhino 7 Grasshopper C# request did not read the installed skill (`SkillReadEvidence` was empty). The response wrongly assigned `Curve.DivideByCount(N, true)` to `Point3d[]`; the installed Rhino 7 method returns `double[]`. The session log reported skills-context-budget overflow with 1072 additional skills omitted. In another fresh session, the prompt `Use the grasshopper-script-nodes skill` caused Codex to read the installed `SKILL.md` and return `double[]` with `PointAt(t)` conversion. Therefore explicit skill naming is verified; automatic selection is not working in the observed CLI session.
 
-The initial five sessions ran from `D:\AI_Dev_Work\2026y\26y_09m_30d_SoDam` with
+The initial five sessions ran from a local project folder with
 `codex exec --ephemeral -s read-only -C <project> <prompt>` on Codex CLI
 `0.156.1` with model `gpt-5.6-terra`. Each prompt explicitly requested the
 local `SKILL.md`. This verifies instruction-following only: no user-level skill
