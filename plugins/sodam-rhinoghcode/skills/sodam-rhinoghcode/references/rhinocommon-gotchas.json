@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "last_reviewed_utc": "2026-09-27T00:00:00Z",
+  "entries": [
+    {
+      "id": "surface-isocurve-direction",
+      "topic": "surface_uv_semantics",
+      "risk": "high",
+      "triggers": ["Surface.IsoCurve", "isocurve", "u lines", "v lines", "surface grid"],
+      "rule": "Surface.IsoCurve(0, c) varies the first parameter and keeps the second constant. Surface.IsoCurve(1, c) keeps the first parameter constant and varies the second.",
+      "implication": "Do not label U-lines and V-lines from memory. Restate which parameter is constant and which varies before writing code.",
+      "source_kind": "local_rhinocommon_xml",
+      "source_ref": "Rhino 7 System/RhinoCommon.xml member M:Rhino.Geometry.Surface.IsoCurve(System.Int32,System.Double); upstream Rhino 8 XML"
+    },
+    {
+      "id": "trimaware-isocurve-array",
+      "topic": "trimmed_surface_semantics",
+      "risk": "high",
+      "triggers": ["BrepFace.TrimAwareIsoCurve", "trim aware isocurve", "trimmed face lines"],
+      "rule": "BrepFace.TrimAwareIsoCurve(direction, constantParameter) may return multiple curves.",
+      "implication": "Expect Curve[] and preserve grouping when useful. A flat list can lose logical structure.",
+      "source_kind": "local_rhinocommon_xml",
+      "source_ref": "Rhino 7 System/RhinoCommon.xml member M:Rhino.Geometry.BrepFace.TrimAwareIsoCurve(System.Int32,System.Double); upstream Rhino 8 XML"
+    },
+    {
+      "id": "trimaware-direction-differs-from-surface",
+      "topic": "surface_uv_semantics",
+      "risk": "high",
+      "triggers": ["BrepFace.TrimAwareIsoCurve", "Surface.IsoCurve", "U lines", "V lines"],
+      "rule": "Rhino 7 XML describes Surface.IsoCurve(0,c) as varying U with constant V, but BrepFace.TrimAwareIsoCurve(0,c) as constant U. Do not transfer direction integers between these methods by analogy.",
+      "implication": "State the desired constant parameter and consult the selected RhinoCommon.xml member before writing either call.",
+      "source_kind": "local_rhinocommon_xml",
+      "source_ref": "Rhino 7 System/RhinoCommon.xml members M:Rhino.Geometry.Surface.IsoCurve(System.Int32,System.Double) and M:Rhino.Geometry.BrepFace.TrimAwareIsoCurve(System.Int32,System.Double)"
+    },
+    {
+      "id": "surface-vs-brepface-trims",
+      "topic": "geometry_representation",
+      "risk": "high",
+      "triggers": ["trimmed surface", "face", "surface", "underlying surface"],
+      "rule": "A Surface does not preserve Brep face trim context. If the visible boundary matters, prefer BrepFace over Surface.",
+      "implication": "Using Surface or UnderlyingSurface() can produce geometry outside the visible trimmed face.",
+      "source_kind": "official_and_community",
+      "source_ref": "RhinoCommon BrepFace docs and McNeel forum discussions about trimmed vs underlying surfaces"
+    },
+    {
+      "id": "curve-dividebycount-parameters",
+      "topic": "curve_parameterization",
+      "risk": "high",
+      "triggers": ["Curve.DivideByCount", "divide curve"],
+      "rule": "Curve.DivideByCount(count, includeEnds) returns curve parameters on success, not Point3d values, unless using the overload with an out Point3d array.",
+      "implication": "Convert returned parameters with curve.PointAt(t) or call the overload that fills points explicitly.",
+      "source_kind": "local_rhinocommon_xml",
+      "source_ref": "Rhino 7 System/RhinoCommon.xml member M:Rhino.Geometry.Curve.DivideByCount(System.Int32,System.Boolean); upstream Rhino 8 XML"
+    },
+    {
+      "id": "plane-fitplanetopoints-result",
+      "topic": "plane_fitting",
+      "risk": "medium",
+      "triggers": ["Plane.FitPlaneToPoints", "FitPlaneToPoints", "PlaneFitResult", "fit plane"],
+      "rule": "Plane.FitPlaneToPoints(...) returns PlaneFitResult, not bool.",
+      "implication": "Do not write `if (!Plane.FitPlaneToPoints(...))`. Compare to `PlaneFitResult.Success`, or for three known non-collinear triangle vertices use `new Plane(A, B, C)` and check `plane.IsValid`.",
+      "source_kind": "user_reported_compile_error",
+      "source_ref": "User reported Rhino 8 Grasshopper C# compile error on 2026-06-30: Operator '!' cannot be applied to operand of type 'PlaneFitResult'."
+    },
+    {
+      "id": "brepface-orientation-reversed",
+      "topic": "orientation",
+      "risk": "medium",
+      "triggers": ["OrientationIsReversed", "face normal", "surface normal"],
+      "rule": "BrepFace.OrientationIsReversed indicates that the face orientation is opposite the natural surface orientation.",
+      "implication": "When the task depends on normals, frames, or sidedness, account for face orientation instead of assuming natural surface orientation.",
+      "source_kind": "local_rhinocommon_xml",
+      "source_ref": "Rhino 7 System/RhinoCommon.xml member P:Rhino.Geometry.BrepFace.OrientationIsReversed; upstream Rhino 8 XML"
+    },
+    {
+      "id": "trimaware-boundary-null",
+      "topic": "domain_boundaries",
+      "risk": "medium",
+      "triggers": ["TrimAwareIsoCurve", "boundary", "domain endpoint", "null"],
+      "rule": "Trim-aware queries near face domain boundaries can fail or behave unexpectedly when the chosen parameter lies outside the active trimmed region.",
+      "implication": "Do not assume face Domain() endpoints are always safe trim-aware sampling values. Interior sampling or a small epsilon may be needed.",
+      "source_kind": "community",
+      "source_ref": "McNeel forum thread on BrepFace.TrimAwareIsoCurve and domain boundaries"
+    },
+    {
+      "id": "single-item-access-iteration",
+      "topic": "grasshopper_execution_model",
+      "risk": "medium",
+      "triggers": ["Single Item", "Item access", "RunScript", "iteration"],
+      "rule": "In Grasshopper scripting, Single Item access means the component can execute once per item when fed a list, not once for the whole list.",
+      "implication": "Choose input access deliberately and avoid accidental per-item execution when the algorithm expects the full collection.",
+      "source_kind": "official_docs",
+      "source_ref": "Grasshopper C# essentials and scripting docs on RunScript execution and parameter access"
+    },
+    {
+      "id": "outputs-are-objects",
+      "topic": "grasshopper_io",
+      "risk": "medium",
+      "triggers": ["outputs", "object", "type hint", "script output"],
+      "rule": "Grasshopper script outputs are object-typed and rely on conversion after script execution.",
+      "implication": "Initialize outputs early and ensure final assigned values match what Grasshopper can convert cleanly.",
+      "source_kind": "official_docs",
+      "source_ref": "Grasshopper scripting docs section Outputs Are Objects"
+    },
+    {
+      "id": "required-inputs-default-optional",
+      "topic": "grasshopper_io",
+      "risk": "medium",
+      "triggers": ["required inputs", "optional inputs", "null input"],
+      "rule": "Rhino 8 Script input parameters are optional by default; Rhino 7 legacy component input behavior must be checked on the actual component.",
+      "implication": "Generate empty-input guards and avoid assuming Rhino 8's Required toggle exists in Rhino 7.",
+      "source_kind": "official_docs",
+      "source_ref": "Grasshopper scripting docs section Required Inputs"
+    }
+  ]
+}

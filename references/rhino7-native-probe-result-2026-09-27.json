@@ -1,0 +1,251 @@
+{
+  "cases": [
+    {
+      "connected": {
+        "actual": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            2.0,
+            0.0,
+            0.0
+          ],
+          [
+            2.0,
+            2.0,
+            0.0
+          ],
+          [
+            2.0,
+            4.0,
+            0.0
+          ]
+        ],
+        "diagnostics": [],
+        "errors": [],
+        "expected": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            0
+          ],
+          [
+            2,
+            4,
+            0
+          ]
+        ],
+        "pass": true,
+        "run_count": 1,
+        "warnings": []
+      },
+      "idle": {
+        "errors": [],
+        "output_counts": [
+          0
+        ],
+        "pass": true,
+        "warnings": []
+      },
+      "language": "csharp",
+      "operation": "divide_polyline"
+    },
+    {
+      "connected": {
+        "actual": [
+          [
+            -1.0,
+            -2.0,
+            -5.0
+          ],
+          [
+            4.0,
+            8.0,
+            6.0
+          ]
+        ],
+        "diagnostics": [],
+        "errors": [],
+        "expected": [
+          [
+            -1,
+            -2,
+            -5
+          ],
+          [
+            4,
+            8,
+            6
+          ]
+        ],
+        "pass": true,
+        "run_count": 1,
+        "warnings": []
+      },
+      "idle": {
+        "errors": [],
+        "output_counts": [
+          0,
+          0
+        ],
+        "pass": true,
+        "warnings": []
+      },
+      "language": "csharp",
+      "operation": "bounds_points"
+    },
+    {
+      "connected": {
+        "actual": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            2.0,
+            0.0,
+            0.0
+          ],
+          [
+            2.0,
+            2.0,
+            0.0
+          ],
+          [
+            2.0,
+            4.0,
+            0.0
+          ]
+        ],
+        "diagnostics": [],
+        "errors": [],
+        "expected": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            0
+          ],
+          [
+            2,
+            4,
+            0
+          ]
+        ],
+        "pass": true,
+        "run_count": 1,
+        "warnings": []
+      },
+      "idle": {
+        "errors": [],
+        "output_counts": [
+          0
+        ],
+        "pass": true,
+        "warnings": []
+      },
+      "language": "ironpython",
+      "operation": "divide_polyline"
+    },
+    {
+      "connected": {
+        "actual": [
+          [
+            -1.0,
+            -2.0,
+            -5.0
+          ],
+          [
+            4.0,
+            8.0,
+            6.0
+          ]
+        ],
+        "diagnostics": [],
+        "errors": [],
+        "expected": [
+          [
+            -1,
+            -2,
+            -5
+          ],
+          [
+            4,
+            8,
+            6
+          ]
+        ],
+        "pass": true,
+        "run_count": 1,
+        "warnings": []
+      },
+      "idle": {
+        "errors": [],
+        "output_counts": [
+          0,
+          0
+        ],
+        "pass": true,
+        "warnings": []
+      },
+      "language": "ironpython",
+      "operation": "bounds_points"
+    },
+    {
+      "connected": {
+        "branch_counts": [
+          1,
+          2,
+          1
+        ],
+        "diagnostics": [],
+        "errors": [],
+        "pass": true,
+        "paths": [
+          "{0}",
+          "{1}",
+          "{2}"
+        ],
+        "run_count": 1,
+        "warnings": []
+      },
+      "idle": {
+        "errors": [],
+        "pass": true,
+        "paths": [],
+        "warnings": []
+      },
+      "operation": "brep_tree"
+    }
+  ],
+  "document_state": {
+    "enable_solutions": true,
+    "enabled": true
+  },
+  "rhino_version": "7.0.20314.3001",
+  "scope": "native Rhino 7 Grasshopper script components",
+  "status": "pass"
+}
