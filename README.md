@@ -1,10 +1,10 @@
-# SoDam-RhinoGHCode
+# SoDam-RhinoGHCode-Codex
 
 English-only guide: [README.en.md](README.en.md).
 
-> Rhino 7 Grasshopper 스크립트 노드용 **Codex 로컬 마켓플레이스 플러그인**. 한국어 안내가 먼저 나오고, 같은 내용을 영어로 이어서 제공합니다. 이 저장소는 Rhino에 설치하는 .gha 파일이 아닙니다.
+> Rhino 7 Grasshopper 스크립트 노드용 **Codex 마켓플레이스 플러그인**. 한국어 안내가 먼저 나오고, 같은 내용을 영어로 이어서 제공합니다. 이 저장소는 Rhino에 설치하는 .gha 파일이 아닙니다.
 
-**이 문서의 기준:** 2026-09-27에 확인한 프로젝트 파일과 로컬 시험 기록. 공개 소스 주소는 [sodam-ai/SoDam-RhinoGHCode](https://github.com/sodam-ai/SoDam-RhinoGHCode)입니다. 설치 명령은 다운로드한 프로젝트 폴더 안에서 실행합니다.
+**이 문서의 기준:** 2026-09-27에 확인한 프로젝트 파일과 로컬 시험 기록. 공개 소스 주소는 [sodam-ai/SoDam-RhinoGHCode-Codex](https://github.com/sodam-ai/SoDam-RhinoGHCode-Codex)입니다. GitHub 마켓플레이스 설치에는 프로젝트 폴더를 별도로 다운로드할 필요가 없습니다.
 
 ## 한국어
 
@@ -40,37 +40,33 @@ Grasshopper는 Rhino 안에서 노드를 연결해 형상을 만드는 도구입
 
 | 목적 | 필요한 것 | 구하는 방법 |
 | --- | --- | --- |
-| Codex에서 코드 생성 | 이 프로젝트 폴더, 플러그인 명령을 지원하는 Codex 데스크톱/CLI, Codex에 접속 가능한 계정 | [Codex 공식 안내](https://developers.openai.com/codex/)에서 설치·로그인 안내를 따릅니다. PowerShell에서 <code>codex --version</code>과 <code>codex plugin --help</code>로 명령이 보이는지 확인합니다. |
+| Codex에서 코드 생성 | 플러그인 명령을 지원하는 Codex 데스크톱/CLI, Codex에 접속 가능한 계정 | [Codex 공식 안내](https://developers.openai.com/codex/)에서 설치·로그인 안내를 따릅니다. PowerShell에서 <code>codex --version</code>과 <code>codex plugin --help</code>로 명령이 보이는지 확인합니다. |
 | 플러그인 묶음 생성과 선택적 보조 계산 | Python 3.10 이상; 이 프로젝트의 검증 기준은 3.12 | [Python 공식 다운로드](https://www.python.org/downloads/windows/)에서 Windows 설치 파일을 받습니다. 설치 후 <code>py -3.12 --version</code>으로 확인합니다. 3.10 이상이면 <code>python</code> 명령도 사용할 수 있으나 설치된 버전을 확인하세요. |
 | 실제 Rhino 7 노드 실행 | 정상 실행되는 Rhino 7, 해당 제품에 유효한 라이선스, 포함된 Grasshopper | [McNeel 다운로드/이전 버전](https://www.rhino3d.com/en/download/)에서 정식 경로를 확인합니다. 이미 설치했다면 다시 다운로드할 필요가 없습니다. |
 | 문서 읽기 | Markdown 뷰어 또는 웹 브라우저 | <code>README.md</code>를 Codex/편집기에서 열거나 <code>README.html</code>을 브라우저에서 엽니다. HTML은 인터넷 없이도 본문을 읽을 수 있습니다. |
 
-**프로젝트 파일 받기:** [이 프로젝트의 GitHub 페이지](https://github.com/sodam-ai/SoDam-RhinoGHCode)에서 초록색 **Code → Download ZIP**을 누르고 압축을 풀어도 됩니다. Git을 설치했다면 아래 `git clone` 명령을 사용할 수 있습니다. [DariyXYZ의 원본 저장소](https://github.com/DariyXYZ/grasshopper-script-nodes)는 기반 프로젝트이며 Rhino 7용 SoDam 개작본의 다운로드 주소가 아닙니다.
+**프로젝트 소스 보기:** 설치만 할 때는 다운로드가 필요 없습니다. 코드를 검토하거나 수정하려면 [이 프로젝트의 GitHub 페이지](https://github.com/sodam-ai/SoDam-RhinoGHCode-Codex)에서 **Code → Download ZIP**으로 받거나 Git으로 복제하세요. [DariyXYZ의 원본 저장소](https://github.com/DariyXYZ/grasshopper-script-nodes)는 기반 프로젝트이며 Rhino 7용 SoDam 개작본의 다운로드 주소가 아닙니다.
 
-PowerShell 열기: Windows 시작 메뉴에서 “PowerShell”을 검색합니다. 아래 명령은 각 줄을 붙여 넣고 Enter를 누릅니다. 경로에 공백이 있을 수 있으므로 따옴표를 지우지 마세요. 프로젝트 폴더 안의 파일을 실행하기 전에 출처를 확인하세요.
+PowerShell 열기: Windows 시작 메뉴에서 “PowerShell”을 검색합니다. 아래 명령은 각 줄을 붙여 넣고 Enter를 누릅니다. 선택적으로 프로젝트 안의 스크립트를 실행할 때는 먼저 출처를 확인하세요.
 
 <a id="ko-3"></a>
-### 3. 마켓플레이스 플러그인 설치
+### 3. GitHub 마켓플레이스 플러그인 설치
 
-**이미 이 컴퓨터에 설치한 경우:** 2026-09-27 로컬 확인에서는 <code>sodam-rhinoghcode@sodam-rhinoghcode</code>가 installed/enabled로 표시됐습니다. 먼저 <code>codex plugin list</code>로 현재 상태를 확인하고, 그대로 있으면 4번으로 가세요.
-
-처음 설치하거나 프로젝트 소스 변경을 설치본에 반영할 때:
+**처음 설치:** PowerShell에서 다음 명령을 순서대로 실행합니다. 프로젝트 폴더를 먼저 받을 필요는 없습니다.
 
 ~~~powershell
-git clone https://github.com/sodam-ai/SoDam-RhinoGHCode.git
-Set-Location -LiteralPath '.\SoDam-RhinoGHCode'
-py -3.12 -B scripts/build_plugin_bundle.py
-py -3.12 -B scripts/build_plugin_bundle.py --check
-codex plugin marketplace add .
+codex plugin marketplace add https://github.com/sodam-ai/SoDam-RhinoGHCode-Codex.git --ref main
 codex plugin add sodam-rhinoghcode@sodam-rhinoghcode
-codex plugin list
+codex plugin marketplace list --json
+codex plugin list -m sodam-rhinoghcode --json
 ~~~
 
-1. 첫 줄은 프로젝트를 받으며, 두 번째 줄은 그 폴더로 이동합니다. ZIP을 받았다면 이 두 줄 대신 압축을 푼 폴더에서 PowerShell을 열고 세 번째 줄부터 실행합니다.
-2. 세 번째 줄은 프로젝트 스킬을 플러그인 묶음에 반영합니다. 네 번째 줄의 <code>--check</code>가 실패하면 설치 전에 오류를 해결합니다.
-3. 다섯 번째 줄의 마침표(<code>.</code>)는 **현재 폴더를 로컬 마켓플레이스로 등록**한다는 뜻입니다. 공개 웹 마켓플레이스에 올리는 명령이 아닙니다.
-4. 여섯 번째 줄은 그 마켓플레이스의 플러그인을 Codex에 설치합니다. 마지막 줄에서 정확한 ID와 활성 상태를 확인합니다. 표시되지 않으면 아래 문제 해결을 봅니다.
-5. 새 Codex 채팅을 열어 <code>$sodam-rhinoghcode</code>를 요청 맨 앞에 적습니다. 기존 채팅에 방금 설치한 스킬이 바로 보이지 않으면 새 채팅 또는 Codex 재시작을 사용합니다.
+1. 첫 줄은 GitHub 저장소의 `main`을 Codex 마켓플레이스 소스로 등록합니다. 저장소 이름은 `SoDam-RhinoGHCode-Codex`입니다.
+2. 두 번째 줄은 그 안의 플러그인을 설치합니다. **플러그인 호출 ID는 이름 변경 후에도 `sodam-rhinoghcode`입니다.**
+3. 마지막 두 줄에서 마켓플레이스 출처가 `https://github.com/sodam-ai/SoDam-RhinoGHCode-Codex.git`인지, 플러그인이 `installed: true`, `enabled: true`인지 확인합니다.
+4. 새 Codex 채팅에서 <code>$sodam-rhinoghcode</code>를 요청 앞에 적습니다. 기존 채팅에서 보이지 않으면 새 채팅을 열거나 Codex를 재시작합니다.
+
+**이전에 로컬 폴더를 같은 이름의 마켓플레이스로 등록했다면:** 먼저 `codex plugin list -m sodam-rhinoghcode --json`과 `codex plugin marketplace list --json`으로 출처를 확인하세요. 로컬 출처일 때만 개인 규칙을 백업한 뒤 `codex plugin remove sodam-rhinoghcode@sodam-rhinoghcode`, `codex plugin marketplace remove sodam-rhinoghcode`를 실행하고 위 네 줄을 적용합니다. 다른 플러그인은 제거하지 마세요.
 
 이 플러그인에는 별도 MCP 서버·API 키·플러그인 전용 Rhino 인증이 없습니다. **실제 Rhino 7 실행에는 Rhino의 정상적인 라이선스가 필요합니다.** Codex 계정 접근 조건도 별개입니다.
 
@@ -108,7 +104,8 @@ C#을 원하면 요청에서 <code>GhPython</code>을 <code>C# Script</code>로 
 
 | 하고 싶은 일 | 명령 |
 | --- | --- |
-| Codex 설치 상태 보기 | <code>codex plugin list</code> |
+| GitHub 마켓플레이스 출처 확인 | <code>codex plugin marketplace list --json</code> |
+| 플러그인 설치 상태 보기 | <code>codex plugin list -m sodam-rhinoghcode --json</code> |
 | 현재 소스와 플러그인 묶음 일치 확인 | <code>py -3.12 -B scripts/build_plugin_bundle.py --check</code> |
 | Rhino 7 설치 정보 보기 | <code>py -3.12 -B scripts/detect_rhino_environment.py --rhino-major 7 --pretty</code> |
 | Rhino 7 API 문서 항목 조회 | <code>py -3.12 -B scripts/lookup_rhinocommon_docs.py --rhino-major 7 --member Surface.IsoCurve --pretty</code> |
@@ -135,10 +132,10 @@ py -3.12 -B scripts/offline_node.py emit --operation bounds_points --language ir
 <p><strong>Rhino 7 대응:</strong> 원본의 Rhino 8 중심 설명을 Rhino 7 구형 C# Script와 GhPython/IronPython 2.7의 코드 위치·포트 수동 설정에 맞춰 보강했습니다. Rhino 8 지침은 남아 있습니다.</p>
 <p><strong>Codex 설치:</strong> 로컬 <code>.agents/plugins/marketplace.json</code>, 플러그인 매니페스트, <code>sodam-rhinoghcode</code> 스킬 묶음을 추가했습니다. 원본의 별도 스킬 설치 방식도 보조 경로로 남아 있지만 이 문서는 마켓플레이스 경로를 기준으로 합니다.</p>
 <p><strong>검증:</strong> 점 계산 두 종류와 대응 C#/GhPython 네 노드, C# Brep Tree 한 노드가 실제 Rhino 7 Grasshopper의 고정 시험에서 통과했습니다. 빈 입력 시험과 문서 정리도 포함됩니다. Rhino 8 및 임의의 새 노드 전체 통과를 뜻하지 않습니다.</p>
-<p><strong>이 README:</strong> 초보자용 한·영 사용법, 로컬 설치, 데이터 흐름, 저작권과 상업적 사용 범위를 추가하고 동일 본문의 HTML을 생성했습니다. 이 요약은 날짜별 전체 Git 변경 이력이 아닙니다.</p>
+<p><strong>이 README:</strong> 초보자용 한·영 사용법, GitHub 설치, 데이터 흐름, 저작권과 상업적 사용 범위를 추가하고 동일 본문의 HTML을 생성했습니다. 이 요약은 날짜별 전체 Git 변경 이력이 아닙니다.</p>
 </details>
 
-소스 문서를 바꾼 뒤에는 <code>build_plugin_bundle.py</code>를 실행하고 <code>--check</code>를 통과시킨 다음 <code>codex plugin add sodam-rhinoghcode@sodam-rhinoghcode</code>로 설치본을 새로 고칩니다. 다시 <code>codex plugin list</code>를 확인하고 **새 채팅**에서 호출합니다. 개인 규칙 <code>references/custom-rules.md</code>을 사용한다면 변경 전 사본을 보관하고 충돌 내용을 확인하세요. 마켓플레이스 설치본과 원본 프로젝트 폴더는 서로 다른 복사본입니다.
+개발자가 소스를 바꾼 뒤에는 <code>build_plugin_bundle.py</code>를 실행하고 <code>--check</code>를 통과시켜 GitHub에 반영합니다. 설치 사용자는 <code>codex plugin marketplace upgrade sodam-rhinoghcode</code>로 GitHub 묶음을 갱신한 뒤, 개인 규칙을 백업하고 <code>codex plugin remove sodam-rhinoghcode@sodam-rhinoghcode</code>와 <code>codex plugin add sodam-rhinoghcode@sodam-rhinoghcode</code>로 다시 설치합니다. 다시 <code>codex plugin list</code>를 확인하고 **새 채팅**에서 호출합니다. 개인 규칙 <code>references/custom-rules.md</code>을 사용한다면 변경 전 사본을 보관하고 충돌 내용을 확인하세요. 마켓플레이스 설치본과 원본 프로젝트 폴더는 서로 다른 복사본입니다.
 
 <a id="ko-8"></a>
 ### 8. 파일 위치와 아키텍처
@@ -146,7 +143,7 @@ py -3.12 -B scripts/offline_node.py emit --operation bounds_points --language ir
 | 프로젝트 상대 위치 | 역할 |
 | --- | --- |
 | <code>README.md</code> / <code>README.html</code> | 이 문서의 같은 내용, Markdown / 브라우저용 HTML |
-| <code>.agents/plugins/marketplace.json</code> | 로컬 마켓플레이스 목록 |
+| <code>.agents/plugins/marketplace.json</code> | 저장소 안의 마켓플레이스 목록 |
 | <code>plugins/sodam-rhinoghcode/.codex-plugin/plugin.json</code> | 플러그인 이름·버전·스킬 위치 |
 | <code>plugins/sodam-rhinoghcode/skills/sodam-rhinoghcode/</code> | Codex가 설치하는 스킬 묶음 |
 | <code>SKILL.md</code> | 스킬의 주된 작업 지침 |
@@ -160,7 +157,7 @@ py -3.12 -B scripts/offline_node.py emit --operation bounds_points --language ir
 | <code>LICENSE</code> | SoDam AI Studio가 작성한 추가 부분에 적용하는 Apache License, Version 2.0 전문 |
 | <code>NOTICE.md</code> | 원본 출처, 개작 사실, 공개 전 권리 확인 사항 |
 
-**구조:** 프로젝트 소스 → 묶음 생성 → 로컬 마켓플레이스 등록 → Codex 설치 캐시의 스킬 → Codex의 코드 답변 → 사람이 Rhino 7 노드에 적용. Codex 답변만으로 Rhino 문서가 변경되거나 3D 형상이 자동 저장되지는 않습니다. <code>README.html</code>은 최상위 사용자 문서이며 플러그인 스킬 묶음의 필수 입력은 아닙니다.
+**구조:** 프로젝트 소스 → 묶음 생성 → GitHub 마켓플레이스 등록 → Codex 설치 캐시의 스킬 → Codex의 코드 답변 → 사람이 Rhino 7 노드에 적용. Codex 답변만으로 Rhino 문서가 변경되거나 3D 형상이 자동 저장되지는 않습니다. <code>README.html</code>은 최상위 사용자 문서이며 플러그인 스킬 묶음의 필수 입력은 아닙니다.
 
 <a id="ko-9"></a>
 ### 9. 보안과 데이터 흐름
@@ -175,13 +172,13 @@ py -3.12 -B scripts/offline_node.py emit --operation bounds_points --language ir
 <a id="ko-10"></a>
 ### 10. 검증 범위와 오류 대처
 
-**확인된 기록:** 2026-09-27 이 컴퓨터에서 로컬 마켓플레이스 플러그인 installed/enabled, 새 Codex 세션의 명시적 스킬 호출, 설치본의 독립 경계값 계산, 실제 Rhino 7 Grasshopper의 **고정 노드 5건**을 확인했습니다. 5건은 C# 분할/경계값, GhPython 분할/경계값, C# Brep Tree입니다. 화면 시험 기록에는 다섯 건 모두 경고·오류가 없고 Rhino 객체 수가 시험 전후 67개입니다. [시험 범위표](references/parity-matrix.md)와 두 JSON 결과 파일을 보세요. **임의의 새 노드, Rhino 8 실제 실행, 다른 PC 설치는 미확인**입니다.
+**확인된 기록:** 2026-09-27 이 컴퓨터에서 GitHub 마켓플레이스 플러그인 installed/enabled, 새 Codex 세션의 명시적 스킬 호출, 설치본의 독립 경계값 계산, 실제 Rhino 7 Grasshopper의 **고정 노드 5건**을 확인했습니다. 5건은 C# 분할/경계값, GhPython 분할/경계값, C# Brep Tree입니다. 화면 시험 기록에는 다섯 건 모두 경고·오류가 없고 Rhino 객체 수가 시험 전후 67개입니다. [시험 범위표](references/parity-matrix.md)와 두 JSON 결과 파일을 보세요. **임의의 새 노드, Rhino 8 실제 실행, 다른 PC 설치는 미확인**입니다.
 
 | 증상 | 먼저 확인할 것 | 다음 조치 |
 | --- | --- | --- |
 | <code>codex</code> 명령을 못 찾음 | <code>codex --version</code> | Codex CLI 설치·PATH·로그인을 공식 안내대로 확인한 뒤 새 PowerShell 창을 엽니다. |
 | <code>py -3.12</code>를 못 찾음 | <code>py --list</code> | Python 3.12를 설치하거나 이미 있는 **3.10 이상**의 정확한 실행 명령을 사용합니다. |
-| 마켓플레이스 등록/플러그인 설치 실패 | 현재 위치, 두 JSON 매니페스트, <code>build_plugin_bundle.py --check</code> | 프로젝트 최상위에서 다시 실행하고 나온 오류 문구를 읽습니다. 임의로 전역 Codex 설정을 지우지 마세요. |
+| 마켓플레이스 등록/플러그인 설치 실패 | GitHub 주소, 네트워크 연결, <code>codex plugin marketplace list --json</code> | 주소와 실제 오류를 확인합니다. 이전 로컬 출처와 이름이 충돌하면 3번의 교체 절차를 따르세요. 임의로 전역 Codex 설정을 지우지 마세요. |
 | 설치됐는데 응답이 일반적인 Rhino 8 코드 | <code>codex plugin list</code>, 요청의 <code>$sodam-rhinoghcode</code>와 <code>Rhino 7</code> | 새 채팅에서 정확한 스킬 이름·버전을 명시하고 Rhino 7 C#/GhPython으로 다시 요청합니다. |
 | Rhino 7이 안 열림/라이선스 오류 | Rhino 자체의 오류 창·계정·라이선스 상태 | McNeel 공식 라이선스 지원으로 정상 실행 문제를 해결합니다. 보조 계산 성공을 Rhino 실행 성공으로 해석하지 마세요. |
 | Grasshopper 명령이 안 열림 | Rhino 명령줄의 <code>_Grasshopper</code> 출력 | Rhino 설치와 Grasshopper 구성 요소를 점검합니다. 기존 문서를 먼저 저장하고 새 테스트 문서에서 확인합니다. |
@@ -253,7 +250,7 @@ A. 프로젝트 폴더와 라이선스 고지를 함께 전달하고 그 PC에�
 
 1. [Purpose](#en-1)
 2. [Prerequisites and downloads](#en-2)
-3. [Local marketplace installation](#en-3)
+3. [GitHub marketplace installation](#en-3)
 4. [Five-minute start](#en-4)
 5. [Workflow and operation](#en-5)
 6. [Commands](#en-6)
@@ -268,40 +265,39 @@ A. 프로젝트 폴더와 라이선스 고지를 함께 전달하고 그 PC에�
 <a id="en-1"></a>
 ### 1. Purpose
 
-Grasshopper is Rhino's visual node system. A script node is a box into which you paste code. This repository packages a **Codex skill as a local marketplace plugin** to produce version-specific Grasshopper node code and exact port setup instructions. It is **not** a compiled Rhino .gha plugin, Rhino UI automation, or a Rhino license bypass.
+Grasshopper is Rhino's visual node system. A script node is a box into which you paste code. This repository packages a **Codex skill as a marketplace plugin** to produce version-specific Grasshopper node code and exact port setup instructions. It is **not** a compiled Rhino .gha plugin, Rhino UI automation, or a Rhino license bypass.
 
 For Rhino 7 it produces legacy C# Script <code>RunScript</code> bodies or GhPython/IronPython 2.7 bodies, with input/output names, type hints, Item/List/Tree access, defaults, and descriptions. You set those ports in Rhino 7 manually. Rhino 8 C# <code>GH_ScriptInstance</code>, Python 3, and IronPython 2 guidance remains; native Rhino 8 execution has not been checked on this machine. Two optional standard-library point-list calculations, equal-length open-polyline division and 3D axis-aligned bounds, run without Rhino and do **not** prove Grasshopper execution.
 
-This document reflects project files and local records checked on 2026-09-27. The public source is [sodam-ai/SoDam-RhinoGHCode](https://github.com/sodam-ai/SoDam-RhinoGHCode). Run the installation commands inside your downloaded project folder.
+This document reflects project files and local records checked on 2026-09-27. The public source is [sodam-ai/SoDam-RhinoGHCode-Codex](https://github.com/sodam-ai/SoDam-RhinoGHCode-Codex). The GitHub marketplace installation does not require a separate project download.
 
 <a id="en-2"></a>
 ### 2. Prerequisites and downloads
 
 | Purpose | Requirement | Where to get it |
 | --- | --- | --- |
-| Generate code in Codex | This project folder, a Codex desktop/CLI release with plugin commands, an account that can access Codex | Follow [official Codex guidance](https://developers.openai.com/codex/). Check <code>codex --version</code> and <code>codex plugin --help</code> in PowerShell. |
+| Generate code in Codex | A Codex desktop/CLI release with plugin commands, an account that can access Codex | Follow [official Codex guidance](https://developers.openai.com/codex/). Check <code>codex --version</code> and <code>codex plugin --help</code> in PowerShell. |
 | Build the plugin and run optional calculations | Python 3.10 or newer; project verification used 3.12 | Download from [Python for Windows](https://www.python.org/downloads/windows/), then check <code>py -3.12 --version</code>. An existing 3.10+ <code>python</code> may be used after checking its version. |
 | Execute nodes in Rhino 7 | A working Rhino 7 installation, an applicable valid license, and its Grasshopper | Use the [official McNeel downloads and archives](https://www.rhino3d.com/en/download/). No redownload is needed if already installed. |
 | Read this guide | A Markdown viewer or web browser | Open <code>README.md</code> in an editor or <code>README.html</code> in a browser. The HTML body is readable offline. |
 
-Get this project from its [GitHub page](https://github.com/sodam-ai/SoDam-RhinoGHCode) with **Code → Download ZIP**, then extract it. If Git is installed, use the `git clone` command below. The [DariyXYZ upstream repository](https://github.com/DariyXYZ/grasshopper-script-nodes) is the base project, **not** the download for this Rhino 7 adaptation. Open PowerShell from Windows Start and paste one command per line. Review the source before running scripts.
+A separate download is unnecessary for installation. To inspect or edit the source, use **Code → Download ZIP** on the [GitHub page](https://github.com/sodam-ai/SoDam-RhinoGHCode-Codex) or clone it with Git. The [DariyXYZ upstream repository](https://github.com/DariyXYZ/grasshopper-script-nodes) is the base project, **not** the download for this Rhino 7 adaptation. Open PowerShell from Windows Start and paste one command per line. Review the source before running scripts.
 
 <a id="en-3"></a>
-### 3. Local marketplace installation
+### 3. GitHub marketplace installation
 
-On this PC, a check on 2026-09-27 showed <code>sodam-rhinoghcode@sodam-rhinoghcode</code> installed and enabled. First run <code>codex plugin list</code>; if it is still present, continue to section 4. For a first installation or refresh after source changes:
+For a first installation, run these commands in PowerShell. You do not need to download the project folder first:
 
 ~~~powershell
-git clone https://github.com/sodam-ai/SoDam-RhinoGHCode.git
-Set-Location -LiteralPath '.\SoDam-RhinoGHCode'
-py -3.12 -B scripts/build_plugin_bundle.py
-py -3.12 -B scripts/build_plugin_bundle.py --check
-codex plugin marketplace add .
+codex plugin marketplace add https://github.com/sodam-ai/SoDam-RhinoGHCode-Codex.git --ref main
 codex plugin add sodam-rhinoghcode@sodam-rhinoghcode
-codex plugin list
+codex plugin marketplace list --json
+codex plugin list -m sodam-rhinoghcode --json
 ~~~
 
-The first two lines download and enter the project. For a ZIP download, open PowerShell in the extracted folder and start with the third line. The build copies current skill sources into the plugin bundle; <code>--check</code> must pass. The dot registers the **current directory as a local marketplace**, not as a public listing. <code>plugin add</code> installs its plugin. Confirm the exact ID and enabled state in <code>plugin list</code>. Open a new Codex chat and explicitly start with <code>$sodam-rhinoghcode</code>; restart Codex if a newly installed skill is not visible in an existing session.
+The first line registers the GitHub `main` branch as a Codex marketplace source. The second installs its plugin. The repository name is `SoDam-RhinoGHCode-Codex`, while the stable plugin ID remains `sodam-rhinoghcode`. Check that the marketplace source is `https://github.com/sodam-ai/SoDam-RhinoGHCode-Codex.git` and that the plugin shows `installed: true` and `enabled: true`. Start a new Codex chat with <code>$sodam-rhinoghcode</code>; restart Codex if an existing chat does not see it.
+
+If an older local folder was registered under the same marketplace name, first inspect `codex plugin list -m sodam-rhinoghcode --json` and `codex plugin marketplace list --json`. Only when the source is local, back up personal rules, run `codex plugin remove sodam-rhinoghcode@sodam-rhinoghcode` and `codex plugin marketplace remove sodam-rhinoghcode`, then run the four installation commands above. Leave other plugins untouched.
 
 This plugin has no separate MCP server, plugin API key, or plugin-specific Rhino authentication. Running Rhino/Grasshopper natively still needs normal Rhino authorization. Codex account access is separate.
 
@@ -357,10 +353,10 @@ This **replaces the clipboard**; preserve anything important first. Unsupported 
 <p><strong>Rhino 7 adaptation:</strong> Added legacy C# Script and GhPython/IronPython 2.7 paste locations and manual port guidance to the upstream Rhino 8 emphasis. Rhino 8 guidance remains.</p>
 <p><strong>Codex packaging:</strong> Added the local marketplace catalog, plugin manifest, and <code>sodam-rhinoghcode</code> skill bundle. The old standalone skill path remains an auxiliary route; this guide uses the marketplace route.</p>
 <p><strong>Evidence:</strong> Two point operations, their four C#/GhPython nodes, and one C# Brep Tree node passed fixed live Rhino 7 tests, including idle input behavior. This does not establish Rhino 8 or arbitrary-node behavior.</p>
-<p><strong>README:</strong> Added bilingual beginner instructions, local installation, data flow, rights boundaries, and a matching HTML rendering. This is a feature summary, not a complete dated Git history.</p>
+<p><strong>README:</strong> Added bilingual beginner instructions, GitHub installation, data flow, rights boundaries, and a matching HTML rendering. This is a feature summary, not a complete dated Git history.</p>
 </details>
 
-After changing skill sources, run <code>build_plugin_bundle.py</code> and <code>--check</code>, reinstall with <code>codex plugin add sodam-rhinoghcode@sodam-rhinoghcode</code>, check <code>codex plugin list</code>, and start a new chat. Back up and review <code>references/custom-rules.md</code> before editing personal rules. The project source and installed plugin cache are separate copies.
+After changing skill sources, maintainers run <code>build_plugin_bundle.py</code> and <code>--check</code> before publishing to GitHub. Installed users run <code>codex plugin marketplace upgrade sodam-rhinoghcode</code>, back up personal rules, then run <code>codex plugin remove sodam-rhinoghcode@sodam-rhinoghcode</code> and <code>codex plugin add sodam-rhinoghcode@sodam-rhinoghcode</code>, check <code>codex plugin list</code>, and start a new chat. Back up and review <code>references/custom-rules.md</code> before editing personal rules. The project source and installed plugin cache are separate copies.
 
 <a id="en-8"></a>
 ### 8. Files and architecture
@@ -368,7 +364,7 @@ After changing skill sources, run <code>build_plugin_bundle.py</code> and <code>
 | Project-relative path | Purpose |
 | --- | --- |
 | <code>README.md</code> / <code>README.html</code> | Same guide in Markdown and browser-readable HTML |
-| <code>.agents/plugins/marketplace.json</code> | Local marketplace catalog |
+| <code>.agents/plugins/marketplace.json</code> | Marketplace catalog in this repository |
 | <code>plugins/sodam-rhinoghcode/.codex-plugin/plugin.json</code> | Plugin name, version, skill path |
 | <code>plugins/sodam-rhinoghcode/skills/sodam-rhinoghcode/</code> | Bundled skill installed by Codex |
 | <code>SKILL.md</code> | Main skill instructions |
@@ -382,7 +378,7 @@ After changing skill sources, run <code>build_plugin_bundle.py</code> and <code>
 | <code>LICENSE</code> | Apache License, Version 2.0 for SoDam AI Studio authored additions |
 | <code>NOTICE.md</code> | Upstream attribution, adaptation, and pre-publication rights checks |
 
-Architecture: project source → bundle build → local marketplace registration → installed Codex skill cache → Codex code response → human applies code to Rhino 7 component. The answer alone does not change or save a Rhino document. The root <code>README.html</code> is a user guide, not a required input to the installed skill.
+Architecture: project source → bundle build → GitHub marketplace registration → installed Codex skill cache → Codex code response → human applies code to Rhino 7 component. The answer alone does not change or save a Rhino document. The root <code>README.html</code> is a user guide, not a required input to the installed skill.
 
 <a id="en-9"></a>
 ### 9. Security and data flow
@@ -397,13 +393,13 @@ Architecture: project source → bundle build → local marketplace registration
 <a id="en-10"></a>
 ### 10. Evidence and troubleshooting
 
-**Observed locally on 2026-09-27:** local marketplace plugin installed/enabled; fresh Codex session explicitly loaded the skill; the installed copy ran the independent bounds sample; five **fixed** Rhino 7 Grasshopper examples passed: C# division/bounds, GhPython division/bounds, and C# Brep Tree. Visible canvas records show no warnings/errors and Rhino object count 67 before/after. See the [acceptance matrix](references/parity-matrix.md) and both JSON records. Arbitrary new nodes, native Rhino 8, and installation on another PC remain **unverified**.
+**Observed locally on 2026-09-27:** GitHub marketplace plugin installed/enabled; fresh Codex session explicitly loaded the skill; the installed copy ran the independent bounds sample; five **fixed** Rhino 7 Grasshopper examples passed: C# division/bounds, GhPython division/bounds, and C# Brep Tree. Visible canvas records show no warnings/errors and Rhino object count 67 before/after. See the [acceptance matrix](references/parity-matrix.md) and both JSON records. Arbitrary new nodes, native Rhino 8, and installation on another PC remain **unverified**.
 
 | Symptom | Check | Action |
 | --- | --- | --- |
 | <code>codex</code> not found | <code>codex --version</code> | Check official CLI installation, PATH, and login; open a new PowerShell window. |
 | <code>py -3.12</code> not found | <code>py --list</code> | Install 3.12 or use the exact command for an installed Python **3.10+**. |
-| Marketplace/plugin install fails | Current directory, both JSON manifests, bundle <code>--check</code> | Run from project root and read the actual error. Do not delete global Codex settings. |
+| Marketplace/plugin install fails | GitHub URL, network access, <code>codex plugin marketplace list --json</code> | Read the actual error. If an old local source has the same name, follow the replacement steps in section 3. Do not delete global Codex settings. |
 | Generic Rhino 8 answer after install | <code>codex plugin list</code>; <code>$sodam-rhinoghcode</code> and <code>Rhino 7</code> in prompt | Start a new chat with explicit skill, version, and C#/GhPython target. |
 | Rhino 7 startup or license error | Rhino's own message and license/account state | Restore normal startup with McNeel support. Offline calculations are not proof of native Rhino execution. |
 | Grasshopper will not open | Rhino <code>_Grasshopper</code> command output | Check Rhino installation and Grasshopper component. Save existing work, then use a new test document. |
