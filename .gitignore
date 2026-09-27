@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+Thumbs.db
+dist/
+build/
+/rhino7-*-result.json
+/rhino7-ui-state.json
+/install-flow-report.md
+/references/rhino7-canvas-native.png
+/references/rhino7-visible-probe-screen.png

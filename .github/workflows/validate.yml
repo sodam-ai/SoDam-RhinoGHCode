@@ -1,0 +1,49 @@
+name: Validate Skill
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check SKILL.md
+        run: python scripts/check_skill_md.py SKILL.md
+
+      - name: Check gotcha registry
+        run: python scripts/check_gotcha_registry.py references/rhinocommon-gotchas.json
+
+      - name: Inspect repo structure
+        run: python scripts/inspect_skill_repo.py .
+
+      - name: Check Rhino version routing
+        run: python scripts/test_rhino7_compat.py
+
+      - name: Check license-free node execution
+        run: python scripts/test_offline_node.py
+
+      - name: Check skill installation safety
+        run: python scripts/test_skill_safety.py
+
+      - name: Check custom rule persistence
+        run: python scripts/test_custom_rules.py
+
+      - name: Verify portable tooling contract
+        run: python scripts/verify_tooling.py
+
+      - name: Verify local marketplace plugin bundle
+        run: python scripts/build_plugin_bundle.py --check

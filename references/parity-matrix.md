@@ -1,0 +1,31 @@
+# Rhino 7 script-node parity and acceptance matrix
+
+This matrix uses the upstream [grasshopper-script-nodes](https://github.com/DariyXYZ/grasshopper-script-nodes) README and SKILL.md as the feature baseline. It distinguishes source instructions, automated tests, and actual Grasshopper execution. The SoDam Rhino MCP repository is an example of an independent approach, not a feature specification for this project.
+
+Use [rhino7-acceptance-gates.md](rhino7-acceptance-gates.md) for exact commands, pass conditions, and the native component observation procedure.
+
+| Upstream capability | Rhino 7 adaptation | Current evidence | Remaining acceptance gate |
+| --- | --- | --- | --- |
+| Detect installed Rhino, Grasshopper, C# and Python runtimes | Rhino 7 selection and IronPython/GhPython file detection | Windows detector output and version-routing tests | Recheck each supported installation layout; installed files do not prove a node ran. |
+| Produce C# Script code in one node | Legacy `RunScript` body, separate helpers, manual ports | Two emitted point-list examples and the documented Brep Tree body passed in a detached Rhino 7 Grasshopper document and a visible test canvas; fixed compile cases passed against installed DLLs; the body checker now compiles a new body with its actual declared ports, imports and helpers | Test each new generated node against its own native inputs and failure cases. |
+| Produce Python node code | Rhino 7 GhPython/IronPython 2.7 instructions; Rhino 8 Python 3 source retained | Two emitted point-list examples passed with actual RhinoCommon points in a detached Rhino 7 Grasshopper document and a visible test canvas; stub edge cases also passed | Test new Python nodes and requested Tree access separately. |
+| Preserve Rhino 8 C#/Python output | Version-specific source instructions retained | Text inspection only on this machine | Test with Rhino 8 in a separate environment; never treat Rhino 7 evidence as Rhino 8 evidence. |
+| Choose Item/List/Tree inputs and useful port names/defaults | Rhino 7 manual setup guide and a complete trimmed Brep Tree example | The four point nodes ran with List input and the documented Tree output preserved three paths in native Rhino 7; emitted port contracts are regression-checked | Per-item iteration and each new Codex Tree answer need their own native check. |
+| Idle-safe optional inputs and initialized outputs | Explicit source rules | All five fixed native cases cleared output with their primary input removed and reported no runtime warning or error; null/empty inputs were also stub-tested | Test malformed and partially connected inputs for each new operation. |
+| Lookup exact RhinoCommon APIs and warn about ambiguous semantics | Rhino 7 XML selection and gotcha registry | Local XML lookup plus automated version and missing-member tests | Confirm every new version-sensitive API against the correct Rhino 7 member signature and behavior. |
+| Persist user-specific rules | Existing `update_custom_rules.py` appends to the rules file | Temporary-file append, reload, and empty-rule rejection tests; no real user-rule write | Preserve existing user rules during future updates. |
+| Install as a Codex marketplace plugin | Local `sodam-rhinoghcode@sodam-rhinoghcode` marketplace registration and enabled plugin | The installed plugin cache matched all 52 source files by SHA-256. A fresh Codex CLI session loaded `$sodam-rhinoghcode`, detected Rhino 7, and emitted the GhPython bounds node. The installed cache ran the bounds sample successfully. All five fixed nodes also solved on a visible Rhino 7 Grasshopper canvas with no runtime messages, and the Rhino model stayed at 67 objects. | Name `$sodam-rhinoghcode` explicitly when requesting code. Verify each newly generated operation in its own Rhino 7 component before relying on it. |
+| Optional independent point calculations | Version inspection, docs lookup and two point-list operations | `offline_node.py` returns equal-length polyline points or axis-aligned point bounds; tests run without Rhino | This is an auxiliary aid. Code generation and offline calculations alone are not native Grasshopper execution. |
+| Run RhinoCommon methods, Grasshopper data trees, and native UI | Native Rhino 7 runs selected generated nodes | A five-node visible Grasshopper definition solved successfully, including one three-branch Tree result. | Verify each newly generated operation in its actual Rhino 7 component; the five examples do not prove arbitrary future scripts. |
+
+## Definition of done for the Rhino 7 skill
+
+1. Each upstream skill behavior has an explicit Rhino 7 example and a passing acceptance check, or is labelled as a Rhino 8-only editor feature with its Rhino 7 equivalent documented.
+2. Emitted C# and IronPython outputs include the exact Rhino 7 component-side input/output contract. Stub compilation or execution is labelled as stub evidence; a C# compile against the real RhinoCommon DLL proves API signatures only. The standalone installed IronPython engine validates Python 2.7 execution, not RhinoCommon integration.
+3. Native Grasshopper execution is marked verified only after observing that component in a running, normally licensed Rhino 7 session. It is never inferred from XML lookup, stubs, independent calculations, or `rhino3dm`.
+4. Each newly generated node is checked for its own ports, connected output, idle behavior, and relevant invalid inputs. The five previously verified fixed cases are not rerun without a relevant change.
+5. CI is configured for Windows and Linux. Windows is required for the local Rhino 7 detector and C# compiler checks. Unsupported platforms and missing exact XML members exit with an error. CI itself must pass before its cross-platform status can be claimed.
+
+## Scope boundary
+
+The original project is a script-generation skill, not the Rhino/Grasshopper engine. Native Rhino 7 Grasshopper script generation and use are the primary target. The independent evaluator is an optional aid for two operations and does not implement arbitrary RhinoCommon calls or the Grasshopper canvas. A temporary Rhino licensing failure is a startup issue to diagnose separately; it is not evidence that a script node passed or failed.

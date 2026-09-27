@@ -1,0 +1,7 @@
+interface:
+  display_name: "SoDam-RhinoGHCode"
+  short_description: "Write Rhino/Grasshopper C# and Python node scripts with environment detection"
+  default_prompt: "Use $sodam-rhinoghcode to detect the local Rhino/Grasshopper environment, load the default rules, failure modes, custom rules, and gotchas, verify ambiguous RhinoCommon geometry APIs against local docs when needed, and write a copy-paste-ready Grasshopper node script that stays neutral on empty optional inputs."
+
+policy:
+  allow_implicit_invocation: true

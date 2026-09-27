@@ -1,0 +1,20 @@
+{
+  "name": "sodam-rhinoghcode",
+  "version": "0.1.0+codex.20260927025903",
+  "description": "Generate and verify Rhino 7 Grasshopper C# Script and GhPython nodes, with Rhino 8 guidance retained.",
+  "author": {
+    "name": "SoDam"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SoDam-RhinoGHCode",
+    "shortDescription": "Write Rhino 7 C# Script and GhPython nodes.",
+    "longDescription": "Local Codex skill for Grasshopper script nodes, RhinoCommon API checks, and Rhino 7 port setup. Rhino 8 guidance remains available. Native execution uses a normally licensed Rhino installation.",
+    "developerName": "SoDam",
+    "category": "Productivity",
+    "capabilities": [
+      "Write"
+    ],
+    "defaultPrompt": "Use $sodam-rhinoghcode to write a Rhino 7 Grasshopper script node and list its exact ports."
+  }
+}
