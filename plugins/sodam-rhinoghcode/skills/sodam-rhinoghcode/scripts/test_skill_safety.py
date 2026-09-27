@@ -95,7 +95,7 @@ class SkillInstallTests(unittest.TestCase):
                                                 "--target", str(root / "skills")]),
                   self.assertRaises(SystemExit) as error):
                 install_skill.main()
-            self.assertIn(str(destination), str(error.exception))
+            self.assertIn(str(destination.resolve()), str(error.exception))
             self.assertFalse((root / "skills" / "dated-project-folder").exists())
 
     def test_plan_reports_conflicting_rules_without_writing(self) -> None:
